@@ -18,7 +18,6 @@
               <div class="container">
         <button class="btn btn-success btn-sm product_cart_button addcart" data-toggle="modal" data-target="#cartModal">Add New</button>
     </div>
-    
                  <div id="todolist">
             
         </div>
@@ -98,7 +97,6 @@ $(document).ready(function(){
            $.post('{{URL::to("crud/update")}}',frmData,function(data,xhrStatus,xhr)
            {
              $('#todolist').empty().append(data);
-             alert('data updated');
            });
          });
 });
@@ -170,13 +168,8 @@ $(document).ready(function(){
 | Pagination
 |--------------------------------------------------------------------------
  -->
- <!-- <script>
+<!-- <script>
 $(document).ready(function(){
-          $.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
   $('#todolist').on('click','.pagination a',function(e)
                   {
                     e.preventDefault();
@@ -195,55 +188,9 @@ $(document).ready(function(){
 | Live search
 |--------------------------------------------------------------------------
  -->
-  <script>
+<script>
 $(document).ready(function(){
-
- fetch_customer_data();
-
- function fetch_customer_data(query = '')
- {
-  $.ajax({
-   url:"{{ route('live.search') }}",
-   method:'GET',
-   data:{query:query},
-   dataType:'json',
-   success:function(data)
-   {
-    //$('#todolist').empty().append(data);
-    $('tbody').html(data.table_data);
-    $.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
-  $('#todolist').on('click','.editbtn',function()
-         {
-            var id=$(this).data('task');
-            $.get('{{URL::to("crud/edit")}}/'+id,function(data)
-         {
-           $('#modals').empty().append(data);
-           $('#editTodoTask').modal('show');
-         });
-         });
-
-        $('#modals').on('submit','#frmEditTask',function(e)
-         {
-           e.preventDefault();
-           var frmData=$(this).serialize();
-           $.post('{{URL::to("crud/update")}}',frmData,function(data,xhrStatus,xhr)
-           {
-             $('#todolist').empty().append(data);
-           });
-         });
-   }
-
-  });
- }
-
- $(document).on('keyup', '#search', function(){
-  var query = $(this).val();
-  fetch_customer_data(query);
- });
+ 
 });
 </script>
 

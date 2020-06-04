@@ -13,37 +13,37 @@ class TodoController extends Controller
     }
     public function create()
     {
-    	return view('ajax.add');
+        return view('ajax.add');
     }
     public function save(Request $request)
     {
         $this->validate($request,[
             'name'=>'required|min:10|max:20',
         ]);
-    	$task=Todo::create($request->all());
-    	$tasks=Todo::all();
+        $task=Todo::create($request->all());
+        $tasks=Todo::all();
       return view('ajax.index',compact('tasks'));
     }
     public function edit($id)
     {
-    	$task=Todo::findOrFail($id);
-    	return view('ajax.edit',compact('task'));
+        $task=Todo::findOrFail($id);
+        return view('ajax.edit',compact('task'));
     }
     public function update(Request $request)
     {
          $this->validate($request,[
             'name'=>'required|min:10|max:20',
         ]);
-    	$task=Todo::findOrFail($request->id);
-    	$task->name=$request->name;
-    	$task->save();
+        $task=Todo::findOrFail($request->id);
+        $task->name=$request->name;
+        $task->save();
       $tasks=Todo::all();
       return view('ajax.index',compact('tasks'));
     }
     public function destroy($id)
     {
-    	$task=Todo::findOrFail($id);
-    	$task->delete();
+        $task=Todo::findOrFail($id);
+        $task->delete();
       $tasks=Todo::all();
       return view('ajax.index',compact('tasks'));
     }

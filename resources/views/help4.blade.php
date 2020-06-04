@@ -17,7 +17,6 @@
       <input type="text" name="search" id="search" class="form-control" placeholder="Search Customer Data" />
      </div>
      <div class="table-responsive">
-      <h3 align="center">Total Data : <span id="total_records"></span></h3>
       <table class="table table-striped table-bordered">
        <thead>
         <tr>
@@ -25,14 +24,15 @@
         </tr>
        </thead>
        <tbody>
-@foreach($data as $row)
+@foreach($crud as $row)
 <tr>
   <td>{{$row->name}}</td>
+  <td>{{$row->description}}</td>
+  <td>{{$row->address}}</td>
   </tr>
 @endforeach
        </tbody>
       </table>
-      {{$data->links()}}
      </div>
     </div>    
    </div>
@@ -55,7 +55,6 @@ $(document).ready(function(){
    success:function(data)
    {
     $('tbody').html(data.table_data);
-    $('#total_records').text(data.total_data);
    }
   });
  }

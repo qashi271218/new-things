@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-
+use App\Todo;
+use App\Crud;
 class LiveSearchController extends Controller
 {
-        function index()
+        public function index()
     {
-     return view('livesearch');
+      $data = Todo::paginate(3);
+     return view('livesearch',compact('data'));
     }
 
     function action(Request $request)
@@ -20,13 +22,17 @@ class LiveSearchController extends Controller
       $query = $request->get('query');
       if($query != '')
       {
-       $data = DB::table('todos')
-         ->where('name', 'like', '%'.$query.'%')->get();
+       $data = DB::table('cruds')
+         ->where('name', 'like', '%'.$query.'%')
+         ->orWhere('description', 'like', '%'.$query.'%')
+         ->orWhere('address', 'like', '%'.$query.'%')->get();
+
          
       }
       else
       {
-       $data = DB::table('todos')
+        
+       $data = DB::table('cruds')
          ->orderBy('name', 'desc')
          ->get();
       }
@@ -38,6 +44,8 @@ class LiveSearchController extends Controller
         $output .= '
         <tr>
          <td>'.$row->name.'</td>
+         <td>'.$row->description.'</td>
+         <td>'.$row->address.'</td>
         </tr>
         ';
        }
@@ -52,7 +60,6 @@ class LiveSearchController extends Controller
       }
       $data = array(
        'table_data'  => $output,
-       'total_data'  => $total_row
       );
 
       echo json_encode($data);

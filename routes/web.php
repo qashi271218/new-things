@@ -28,3 +28,15 @@ Route::post('todo/save','TodoController@save');
 
 Route::get('/live_search', 'LiveSearchController@index');
 Route::get('/live_search/action', 'LiveSearchController@action')->name('live_search.action');
+
+
+Route::get('/pagination', 'PaginationController@index');
+Route::get('/result/fetch_data', 'PaginationController@fetch_data');
+
+
+Route::get('crud','CrudController@index');
+Route::get('crud/edit/{id}','CrudController@edit');
+Route::post('/studentadd','CrudController@store');
+Route::post('crud/update','CrudController@update');
+Route::get('crud/destroy/{id}','CrudController@destroy');
+Route::get('/live_search/action', 'CrudController@action')->name('live.search');
